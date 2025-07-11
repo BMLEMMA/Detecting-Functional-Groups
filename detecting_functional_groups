@@ -1,3 +1,5 @@
+#some of the methods and ideas are from this book: https://weisscharlesj.github.io/SciCompforChemists/notebooks/chapter_15/chap_15_notebook.html
+#it helped me with the initial understanding of the content and with drawing structures and detecting functional groups of structures.
 #installing rdkit
 !pip install rdkit
 !pip install pubchempy
