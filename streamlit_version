@@ -1,0 +1,57 @@
+
+#imports:
+from rdkit import Chem
+from rdkit.Chem import AllChem, Descriptors
+from rdkit.Chem.Draw import IPythonConsole
+import cirpy
+from rdkit.Chem.Draw import SimilarityMaps
+from rdkit.Chem import rdFingerprintGenerator
+
+
+# %%
+      
+#PART TWO
+#streamlit portion:
+#libraries
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# %%
+
+st.title("Welcome to the Functional Group Descriptor")
+st.subheader("Please enter the compound:")
+molecule= st.text_input("Enter the Compound")
+smiles= cirpy.resolve (molecule, "smiles")
+mol= Chem.MolFromSmiles (smiles)
+Chem.Draw.MolToImage(mol, size=(800,400))
+# %%
+
+#defining a dictionary of functional groups:
+functional_groups = {
+    "phenol groups": Descriptors.fr_phenol,
+    "thiol groups": Descriptors.fr_SH,
+    "phosphoric ester groups": Descriptors.fr_phos_ester,
+    "halogens": Descriptors.fr_halogen,
+    "aromatic carboxylic acid groups": Descriptors.fr_Ar_COO,
+    "ether oxygen groups": Descriptors.fr_ether,
+    "ketone groups": Descriptors.fr_ketone,
+    "carboxylic acid groups": Descriptors.fr_COO,
+    "ester groups": Descriptors.fr_COO2,
+    "amidine groups": Descriptors.fr_amidine,
+    "nitro groups": Descriptors.fr_nitro,
+    "nitrile groups": Descriptors.fr_nitrile,
+    "azide groups": Descriptors.fr_azide,
+    "epoxide groups": Descriptors.fr_epoxide,
+    "alcohol groups": Descriptors.fr_Al_OH,
+    "tertiary amine groups": Descriptors.fr_NH0,
+    "benzene rings": Descriptors.fr_benzene,
+    "aldehyde groups": Descriptors.fr_aldehyde,
+    "amide groups": Descriptors.fr_amide
+}
+# %%
+
+#Final display
+for key, descriptor_func in functional_groups.items():
+    if descriptor_func(mol) != 0:
+        st.write("There are", count, key, "groups.")
